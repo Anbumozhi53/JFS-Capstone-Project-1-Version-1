@@ -1,0 +1,15 @@
+<h1>Available Bus Routes</h1>
+<div id="busList"></div>
+
+<script>
+fetch('/api/buses')
+    .then(response => response.json())
+    .then(data => {
+        const busListDiv = document.getElementById('busList');
+        data.forEach(bus => {
+            const busDiv = document.createElement('div');
+            busDiv.innerHTML = `Route: ${bus.route}, Departure: ${bus.departureTime}, Arrival: ${bus.arrivalTime}, Price: ${bus.price}`;
+            busListDiv.appendChild(busDiv);
+        });
+    });
+</script>
