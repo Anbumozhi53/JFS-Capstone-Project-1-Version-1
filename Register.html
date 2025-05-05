@@ -1,0 +1,32 @@
+spring.datasource.url=jdbc:mysql://localhost:3306/bus_booking
+spring.datasource.username=root
+spring.datasource.password=your_password
+spring.jpa.hibernate.ddl-auto=update
+
+
+<form action="/api/register" method="POST">
+    <label for="name">Name:</label><input type="text" name="name" required />
+    <label for="email">Email:</label><input type="email" name="email" required />
+    <label for="password">Password:</label><input type="password" name="password" required />
+    <button type="submit">Register</button>
+</form>
+
+
+<h1>Available Bus Routes</h1>
+<div id="busList"></div>
+
+<script>
+fetch('/api/buses')
+    .then(response => response.json())
+    .then(data => {
+        const busListDiv = document.getElementById('busList');
+        data.forEach(bus => {
+            const busDiv = document.createElement('div');
+            busDiv.innerHTML = `Route: ${bus.route}, Departure: ${bus.departureTime}, Arrival: ${bus.arrivalTime}, Price: ${bus.price}`;
+            busListDiv.appendChild(busDiv);
+        });
+    });
+</script>
+
+<h1>Available Bus Routes</h1>
+<div id="busList"></div>
