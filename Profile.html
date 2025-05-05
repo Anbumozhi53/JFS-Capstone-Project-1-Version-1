@@ -1,0 +1,31 @@
+<form id="bookingForm">
+    <input type="text" name="passengerName" placeholder="Passenger Name" required />
+    <select name="busId" required>
+        <!-- Options populated dynamically from available buses -->
+    </select>
+    <input type="text" name="seatPreference" placeholder="Seat Preference" />
+    <button type="submit">Book Ticket</button>
+</form>
+
+<script>
+document.getElementById('bookingForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    
+    fetch('/api/book', {
+        method: 'POST',
+        body: JSON.stringify({
+            passengerName: formData.get('passengerName'),
+            busId: formData.get('busId'),
+            seatPreference: formData.get('seatPreference')
+        }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert('Booking successful! Your ticket details: ' + JSON.stringify(data));
+    });
+});
+</script>
