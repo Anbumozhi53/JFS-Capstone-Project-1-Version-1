@@ -1,0 +1,11 @@
+@RestController
+@RequestMapping("/api/bus")
+public class BusController {
+    @Autowired
+    private BusRepository busRepo;
+
+    @GetMapping("/search")
+    public List<Bus> searchBus(@RequestParam String from, @RequestParam String to) {
+        return busRepo.findBySourceAndDestination(from, to);
+    }
+}
